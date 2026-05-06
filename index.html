@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Henrique rike — Social Media & Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --pink: #FF2678;
+      --yellow: #F5C418;
+      --black: #0D0D0D;
+      --white: #FFFFFF;
+      --gray: #F4F4F2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 52px;
+      background: rgba(255,255,255,0);
+      backdrop-filter: blur(0px);
+      transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-color: rgba(0,0,0,0.07);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 19px;
+      color: var(--white);
+      transition: color 0.4s;
+    }
+
+    nav.scrolled .nav-logo { color: var(--black); }
+
+    .nav-links {
+      display: flex;
+      gap: 38px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav.scrolled .nav-links a { color: var(--black); }
+    .nav-links a:hover { color: var(--pink); }
+    nav.scrolled .nav-links a:hover { color: var(--pink); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('fotohenrique.jpg') center/cover no-repeat;
+      background-position: 68% center;
+    }
+
+    .hero-grad {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.78) 0%,
+        rgba(0,0,0,0.52) 45%,
+        rgba(0,0,0,0.12) 75%,
+        rgba(0,0,0,0.05) 100%
+      );
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 100px 52px 60px;
+      max-width: 700px;
+    }
+
+    .kw {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(20px, 2.4vw, 30px);
+      color: rgba(255,255,255,0.92);
+      line-height: 1.5;
+      display: block;
+    }
+
+    .kw-row { margin-bottom: 4px; }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 8.5vw, 118px);
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 0.92;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin: 14px 0 18px;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.06em;
+      margin-top: 32px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 52px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+      z-index: 1;
+      animation: bob 2.4s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(7px); }
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 52px; }
+
+    .s-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+
+    .s-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4.5vw, 62px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 52px;
+    }
+
+    /* ── SOBRE ── */
+    #sobre { background: var(--gray); }
+
+    .sobre-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .sobre-text .s-title { margin-bottom: 28px; }
+
+    .sobre-text p {
+      font-size: 16px;
+      line-height: 1.9;
+      font-weight: 300;
+      color: #444;
+      margin-bottom: 18px;
+    }
+
+    .sobre-text strong { font-weight: 500; color: var(--black); }
+
+    .marcas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 24px 0;
+    }
+
+    .marca {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid #ddd;
+      border-radius: 100px;
+      color: #555;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 15px;
+      border-radius: 100px;
+      margin-top: 4px;
+    }
+
+    /* ── CLIENTES (cards) ── */
+    #projetos { background: var(--white); }
+
+    .projetos-inner { max-width: 1200px; margin: 0 auto; }
+
+    .projetos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+
+    .projeto {
+      padding: 52px 44px;
+      background: var(--black);
+      color: var(--white);
+      cursor: default;
+      transition: background 0.25s;
+    }
+
+    .projeto:nth-child(even) { background: var(--gray); color: var(--black); }
+    .projeto:hover { background: var(--pink); color: var(--white); }
+
+    .projeto-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      opacity: 0.4;
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    .projeto-nome {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .projeto-bar {
+      width: 40px;
+      height: 2px;
+      background: currentColor;
+      opacity: 0.35;
+      margin-bottom: 20px;
+    }
+
+    .projeto-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.7;
+      opacity: 0.75;
+    }
+
+    /* ── PROJETOS RECENTES ── */
+    #portfolio { background: var(--gray); }
+
+    .portfolio-inner { max-width: 1200px; margin: 0 auto; }
+
+    .client-block { margin-bottom: 90px; }
+    .client-block:last-child { margin-bottom: 0; }
+
+    .client-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .client-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .client-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: #888;
+    }
+
+    /* ── SLIDESHOW (16:9 fixo) ── */
+    .slideshow {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 16 / 9;
+      user-select: none;
+    }
+
+    .slides-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .slide-item {
+      min-width: 100%;
+      flex-shrink: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.48);
+      color: var(--white);
+      border: none;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 2;
+      line-height: 1;
+    }
+
+    .slide-btn:hover { background: rgba(0,0,0,0.72); }
+    .slide-btn.prev { left: 16px; }
+    .slide-btn.next { right: 16px; }
+
+    .slide-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 2;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .dot.active {
+      background: var(--white);
+      transform: scale(1.3);
+    }
+
+    /* vídeo 16:9 nos projetos */
+    .project-video {
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16 / 9;
+      margin-bottom: 16px;
+    }
+
+    .project-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── VIDEOS ── */
+    #videos { background: var(--white); }
+
+    .videos-inner { max-width: 1200px; margin: 0 auto; }
+
+    .insta-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 36px;
+      align-items: start;
+    }
+
+    .video-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .video-card-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: #888;
+    }
+
+    .video-card-label .badge {
+      display: inline-block;
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 100px;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    .insta-slot {
+      width: 100%;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #eee;
+    }
+
+    .insta-slot .instagram-media {
+      min-width: unset !important;
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
+    /* vídeo horizontal grande */
+    .wide-video-wrap {
+      margin-bottom: 28px;
+    }
+
+    .wide-video-wrap:last-child { margin-bottom: 0; }
+
+    .wide-video {
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .wide-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .wide-video-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: #888;
+      margin-top: 10px;
+    }
+
+    /* grupo de vídeos com título de cliente */
+    .video-group {
+      margin-bottom: 52px;
+    }
+
+    .video-group:last-child { margin-bottom: 0; }
+
+    .video-group-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #eee;
+      letter-spacing: 0.02em;
+    }
+
+    .three-video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .three-video-grid .wide-video {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* natura: horizontal grande + vertical ao lado */
+    .natura-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .natura-vertical {
+      aspect-ratio: 9 / 16;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .natura-vertical video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── CONTATO ── */
+    #contato {
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    #contato .s-label { color: #555; }
+    #contato .s-title { color: var(--white); }
+
+    .contato-items {
+      display: flex;
+      justify-content: center;
+      gap: 70px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .contato-item { display: flex; flex-direction: column; gap: 10px; }
+
+    .c-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--pink);
+      letter-spacing: 0.06em;
+    }
+
+    .c-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .c-value:hover { color: var(--pink); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid #1a1a1a;
+      padding: 24px 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: #444;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      .projetos-grid { grid-template-columns: 1fr; }
+      .insta-row { grid-template-columns: 1fr; }
+      .three-video-grid { grid-template-columns: 1fr; }
+      .natura-grid { grid-template-columns: 1fr; }
+      .natura-vertical { aspect-ratio: 16/9; }
+      .contato-items { flex-direction: column; align-items: center; gap: 40px; }
+      footer { flex-direction: column; gap: 6px; text-align: center; padding: 20px 24px; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner { padding: 100px 24px 60px; }
+      .scroll-hint { left: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <span class="nav-logo">Henrique rike</span>
+    <ul class="nav-links">
+      <li><a href="#sobre">sobre</a></li>
+      <li><a href="#projetos">clientes</a></li>
+      <li><a href="#portfolio">portfolio</a></li>
+      <li><a href="#videos">vídeos</a></li>
+      <li><a href="#contato">contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grad"></div>
+    <div class="hero-inner">
+      <span class="kw kw-row">conteúdo mobile &nbsp;&nbsp; videomaker &nbsp;&nbsp; direção</span>
+      <h1 class="hero-name">Henrique<br>rike</h1>
+      <span class="kw kw-row">documentário &nbsp;&nbsp;&nbsp; reels</span>
+      <span class="kw kw-row">&nbsp;&nbsp;&nbsp; entrevistas</span>
+      <p class="hero-sub">social media & design · Rio de Janeiro</p>
+    </div>
+    <p class="scroll-hint">↓ role para ver</p>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="sobre-inner">
+      <div class="sobre-text">
+        <p class="s-label">quem é</p>
+        <div class="s-title">Sobre<br>Henrique</div>
+
+        <p>Goiano criado no Rio de Janeiro. Economista e <strong>mestrando em Comunicação Social pela UFRJ</strong>, atuo há mais de 5 anos em marketing, audiovisual, design e criação de conteúdo.</p>
+
+        <p>Já desenvolvi projetos para marcas como:</p>
+
+        <div class="marcas">
+          <span class="marca">L'Oréal</span>
+          <span class="marca">Rock in Rio</span>
+          <span class="marca">The Town</span>
+          <span class="marca">Rio2C</span>
+          <span class="marca">Johnson's</span>
+          <span class="marca">OFF!</span>
+          <span class="marca">Natura</span>
+          <span class="marca">Doritos</span>
+          <span class="marca">Memorial do Holocausto</span>
+        </div>
+
+        <p>Trabalho com <strong>inteligência artificial aplicada à comunicação e produção audiovisual</strong> — área que integra minha pesquisa acadêmica e minha prática criativa. Já ministrei <strong>palestras sobre social media, marketing digital e IA</strong>.</p>
+
+        <span class="ai-badge">✦ Pesquisa em IA aplicada à comunicação</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section id="projetos">
+    <div class="projetos-inner">
+      <p class="s-label">trajetória</p>
+      <div class="s-title">Clientes</div>
+      <div class="projetos-grid">
+
+        <div class="projeto">
+          <span class="projeto-num">01</span>
+          <div class="projeto-nome">Identidades<br>Visuais</div>
+          <div class="projeto-bar"></div>
+          <p class="projeto-desc">Criação de identidades visuais, flyers e PSDs para marcas que me procuram pelo trabalho em redes sociais.</p>
+        </div>
+
+        <div class="projeto">
+          <span class="projeto-num">02</span>
+          <div class="projeto-nome">Rock in Rio<br>& The Town</div>
+          <div class="projeto-bar"></div>
+          <p class="projeto-desc">Mix de estratégia, design, animação e edição de vídeo. Vídeos para TikTok, design de stories e estratégia de mídia.</p>
+        </div>
+
+        <div class="projeto">
+          <span class="projeto-num">03</span>
+          <div class="projeto-nome">Vídeos<br>Diversos</div>
+          <div class="projeto-bar"></div>
+          <p class="projeto-desc">Produções audiovisuais para marcas e eventos: entrevistas, reels, documentários e vídeos institucionais.</p>
+        </div>
+
+        <div class="projeto">
+          <span class="projeto-num">04</span>
+          <div class="projeto-nome">KFC</div>
+          <div class="projeto-bar"></div>
+          <p class="projeto-desc">Criação de conteúdo e estratégia de redes sociais, edição de vídeos e campanhas digitais.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MEUS PROJETOS MAIS RECENTES -->
+  <section id="portfolio">
+    <div class="portfolio-inner">
+      <p class="s-label">trabalhos recentes</p>
+      <div class="s-title">Meus Projetos<br>Mais Recentes</div>
+
+      <!-- BANQUETTE -->
+      <div class="client-block">
+        <div class="client-header">
+          <span class="client-name">Banquette Arrière</span>
+          <span class="client-tag">Identidade visual & vídeo</span>
+        </div>
+
+        <div class="project-video">
+          <video controls muted loop playsinline>
+            <source src="video_V1BANQUETTE.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="slideshow" id="banquette-show">
+          <div class="slides-track">
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/1.png" alt="Banquette — 1"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/2.png" alt="Banquette — 2"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/3.png" alt="Banquette — 3"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/4.png" alt="Banquette — 4"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/5.png" alt="Banquette — 5"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/6.png" alt="Banquette — 6"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/7.png" alt="Banquette — 7"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/8.png" alt="Banquette — 8"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/9.png" alt="Banquette — 9"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/10.png" alt="Banquette — 10"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/11.png" alt="Banquette — 11"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/12.png" alt="Banquette — 12"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/13.png" alt="Banquette — 13"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/14.png" alt="Banquette — 14"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/15.png" alt="Banquette — 15"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/16.png" alt="Banquette — 16"></div>
+            <div class="slide-item"><img src="banquetteapresenta%C3%A7%C3%A3o/17.png" alt="Banquette — 17"></div>
+          </div>
+          <button class="slide-btn prev" aria-label="Anterior">&#8592;</button>
+          <button class="slide-btn next" aria-label="Próximo">&#8594;</button>
+          <div class="slide-dots"></div>
+        </div>
+      </div>
+
+      <!-- CHAMA -->
+      <div class="client-block">
+        <div class="client-header">
+          <span class="client-name">Chama</span>
+          <span class="client-tag">Identidade visual completa</span>
+        </div>
+        <div class="slideshow" id="chama-show">
+          <div class="slides-track">
+            <div class="slide-item"><img src="chama_01.png" alt="Chama — Cover"></div>
+            <div class="slide-item"><img src="chama_03.png" alt="Chama — Possibilidades de logo"></div>
+            <div class="slide-item"><img src="chama_06.png" alt="Chama — Mascote conceito"></div>
+            <div class="slide-item"><img src="chama_07.png" alt="Chama — Mascote"></div>
+            <div class="slide-item"><img src="chama_08.png" alt="Chama — Ícones"></div>
+            <div class="slide-item"><img src="chama_09.png" alt="Chama — Ícones variação"></div>
+            <div class="slide-item"><img src="chama_11.png" alt="Chama — Patterns"></div>
+            <div class="slide-item"><img src="chama_12.png" alt="Chama — Stickers"></div>
+          </div>
+          <button class="slide-btn prev" aria-label="Anterior">&#8592;</button>
+          <button class="slide-btn next" aria-label="Próximo">&#8594;</button>
+          <div class="slide-dots"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VIDEOS -->
+  <section id="videos">
+    <div class="videos-inner">
+      <p class="s-label">veja o trabalho</p>
+      <div class="s-title">Vídeos</div>
+
+      <!-- Rock in Rio -->
+      <div class="video-group">
+        <p class="video-group-title">Rock in Rio</p>
+        <div class="three-video-grid">
+          <div class="video-card">
+            <div class="natura-vertical">
+              <video controls muted loop playsinline>
+                <source src="videos%20rock%20in%20rio/rock%20in%20rio%20-%20video%201.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="natura-vertical">
+              <video controls muted loop playsinline>
+                <source src="videos%20rock%20in%20rio/rock%20in%20rio%20-%20video%202.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="natura-vertical">
+              <video controls muted loop playsinline>
+                <source src="videos%20rock%20in%20rio/rock%20in%20rio%20-%20video%203.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Natura -->
+      <div class="video-group">
+        <p class="video-group-title">Natura</p>
+        <div class="natura-grid">
+          <div class="wide-video">
+            <video controls muted loop playsinline>
+              <source src="videos%20natura/natura%20horizontal.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="natura-vertical">
+            <video controls muted loop playsinline>
+              <source src="videos%20natura/natura%20vertical.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pizza Hut -->
+      <div class="wide-video-wrap">
+        <div class="wide-video">
+          <video controls muted loop playsinline>
+            <source src="GUI_PIZZAHUT.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="wide-video-label">Pizza Hut</p>
+      </div>
+
+      <!-- KFC -->
+      <div class="wide-video-wrap">
+        <div class="wide-video">
+          <video controls muted loop playsinline>
+            <source src="videokfc.MP4" type="video/mp4">
+          </video>
+        </div>
+        <p class="wide-video-label">KFC</p>
+      </div>
+
+      <!-- Instagram -->
+      <div class="video-group">
+        <p class="video-group-title">Instagram</p>
+        <div class="insta-row">
+          <div class="video-card">
+            <div class="insta-slot">
+              <blockquote class="instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/DL5pK9zxL1N/"
+                data-instgrm-version="14"
+                style="width:100%; margin:0 !important;">
+              </blockquote>
+            </div>
+            <p class="video-card-label">Social media <span class="badge">IA</span></p>
+          </div>
+
+          <div class="video-card">
+            <div class="insta-slot">
+              <blockquote class="instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/DBT3vWqp4gJ/"
+                data-instgrm-version="14"
+                style="width:100%; margin:0 !important;">
+              </blockquote>
+            </div>
+            <p class="video-card-label">KFC</p>
+          </div>
+
+          <div class="video-card">
+            <div class="insta-slot">
+              <blockquote class="instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/C-8bIglpKm-/"
+                data-instgrm-version="14"
+                style="width:100%; margin:0 !important;">
+              </blockquote>
+            </div>
+            <p class="video-card-label">Douglas Silva × Natura</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <p class="s-label">vamos trabalhar juntos</p>
+    <div class="s-title">Entre em contato</div>
+    <div class="contato-items">
+      <div class="contato-item">
+        <span class="c-label">Telefone</span>
+        <a href="tel:+5521998054088" class="c-value">(21) 99805-4088</a>
+      </div>
+      <div class="contato-item">
+        <span class="c-label">Instagram</span>
+        <a href="https://instagram.com/eu.henriquerike" target="_blank" rel="noopener" class="c-value">@eu.henriquerike</a>
+      </div>
+      <div class="contato-item">
+        <span class="c-label">E-mail</span>
+        <a href="mailto:eu.henriquerike@gmail.com" class="c-value">eu.henriquerike@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Henrique rike</span>
+    <span>social media & design · 2025</span>
+  </footer>
+
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <script>
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    function initSlideshow(id) {
+      const el = document.getElementById(id);
+      const track = el.querySelector('.slides-track');
+      const items = track.querySelectorAll('.slide-item');
+      const dotsEl = el.querySelector('.slide-dots');
+      let cur = 0;
+      const dots = [];
+
+      items.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Slide ' + (i + 1));
+        d.addEventListener('click', () => go(i));
+        dotsEl.appendChild(d);
+        dots.push(d);
+      });
+
+      function go(n) {
+        cur = (n + items.length) % items.length;
+        track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+        dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+      }
+
+      el.querySelector('.prev').addEventListener('click', () => go(cur - 1));
+      el.querySelector('.next').addEventListener('click', () => go(cur + 1));
+
+      el.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') go(cur - 1);
+        if (e.key === 'ArrowRight') go(cur + 1);
+      });
+    }
+
+    initSlideshow('chama-show');
+    initSlideshow('banquette-show');
+  </script>
+
+</body>
+</html>
