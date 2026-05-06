@@ -256,6 +256,12 @@
       transition: background 0.25s;
     }
 
+    a.projeto {
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+    }
+
     .projeto:nth-child(even) { background: var(--gray); color: var(--black); }
     .projeto:hover { background: var(--pink); color: var(--white); }
 
@@ -696,33 +702,33 @@
       <div class="s-title">Clientes</div>
       <div class="projetos-grid">
 
-        <div class="projeto">
+        <a class="projeto" href="#portfolio">
           <span class="projeto-num">01</span>
           <div class="projeto-nome">Identidades<br>Visuais</div>
           <div class="projeto-bar"></div>
           <p class="projeto-desc">Criação de identidades visuais, flyers e PSDs para marcas que me procuram pelo trabalho em redes sociais.</p>
-        </div>
+        </a>
 
-        <div class="projeto">
+        <a class="projeto" href="#video-rir">
           <span class="projeto-num">02</span>
           <div class="projeto-nome">Rock in Rio<br>& The Town</div>
           <div class="projeto-bar"></div>
           <p class="projeto-desc">Mix de estratégia, design, animação e edição de vídeo. Vídeos para TikTok, design de stories e estratégia de mídia.</p>
-        </div>
+        </a>
 
-        <div class="projeto">
+        <a class="projeto" href="#videos">
           <span class="projeto-num">03</span>
           <div class="projeto-nome">Vídeos<br>Diversos</div>
           <div class="projeto-bar"></div>
           <p class="projeto-desc">Produções audiovisuais para marcas e eventos: entrevistas, reels, documentários e vídeos institucionais.</p>
-        </div>
+        </a>
 
-        <div class="projeto">
+        <a class="projeto" href="#video-kfc">
           <span class="projeto-num">04</span>
           <div class="projeto-nome">KFC</div>
           <div class="projeto-bar"></div>
           <p class="projeto-desc">Criação de conteúdo e estratégia de redes sociais, edição de vídeos e campanhas digitais.</p>
-        </div>
+        </a>
 
       </div>
     </div>
@@ -806,7 +812,7 @@
       <div class="s-title">Vídeos</div>
 
       <!-- Rock in Rio -->
-      <div class="video-group">
+      <div class="video-group" id="video-rir">
         <p class="video-group-title">Rock in Rio</p>
         <div class="three-video-grid">
           <div class="video-card">
@@ -861,7 +867,7 @@
       </div>
 
       <!-- KFC -->
-      <div class="wide-video-wrap">
+      <div class="wide-video-wrap" id="video-kfc">
         <div class="wide-video">
           <video controls muted loop playsinline>
             <source src="videokfc.MP4" type="video/mp4">
